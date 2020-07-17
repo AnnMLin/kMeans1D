@@ -3,9 +3,9 @@
 
 function kMeans1D(data, k, maxSteps = 20) {
   //1.RANDOMLY PICK K CENTER POINTS(CP)
-  let c = data.slice(0, k)
+  // let c = data.slice(0, k)
   //OR MANUALLY ASSIGN C VALUES
-  // let c = [1, 11, 13]
+  let c = [1, 2, 3]
   console.log('c: ', c)
  
   let step = 0
@@ -48,7 +48,11 @@ function kMeans1D(data, k, maxSteps = 20) {
     //5.FOR EACH CP GROUP, FIND NEW CP AND UPDATE
     for(let key in cpHash) {
       if(cpHash[key].length <= 2) continue
-      let newCP = findCP(cpHash[key])
+      
+      let sum = cpHash[key].reduce((acc, curr) => {
+        return acc+curr
+      }, 0)
+      let newCP = sum/cpHash[key].length
       c[key] = newCP
     }
     console.log('new c: ', c)
@@ -58,40 +62,6 @@ function kMeans1D(data, k, maxSteps = 20) {
   }
 
 }
-
-
-// GIVEN AN ARRAY, FIND THE CENTER VALUE WHERE TOTAL DISTANCE ALL ARRAY VALUE IS SMALLEST 
-function findCP(array) {
-  const totalDist = Array(array.length)
-  totalDist.fill(0)
-  let i = 0
-  let j = i+1
-  let smallest
-  let idx
-
-  while(i < array.length-1) {
-    let dist = Math.abs(array[j] - array[i])
-    totalDist[i] += dist
-    totalDist[j] += dist
-
-    if(j < array.length-1) {
-      j++
-    }
-    else {
-      if(!smallest || totalDist[i] < smallest) {
-        smallest = totalDist[i]
-        idx = i
-      }
-
-      i++
-      j = i+1
-    }
-  }
-  // console.log(smallest, idx, totalDist)
-  return array[idx]
-}
-
-// findCP([ 1, 2, 3, 9, 10, 18])
 
 //DO I WANT TO RETURN AN MAPPING ARRAY OF CPs IN SAME ORDER TO INPUT DATA?
 // [CP0, CP0, CP0, CP1, CP0, CP1, CP2,....]
