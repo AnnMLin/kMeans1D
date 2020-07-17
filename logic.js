@@ -1,16 +1,54 @@
 //INPUT DATA : ARRAY
 //INPUT K : NUMBER
 
-function kMeans1D(data, k) {
-  //RANDOMLY PICK K CENTER POINTS(CP)
+function kMeans1D(data, k, steps = 10) {
+  //1.RANDOMLY PICK K CENTER POINTS(CP)
+  let c = data.slice(0, k)
+ 
 
-  //FOR EACH DATA, CALCULATE ITS DISTANCE^2 WITH EACH CP
-  
-  //FIND THE CP THAT IS CLOSEST
+  while(steps > 0) {
+    let cpContainer = []
+    let cpHash = {}
 
-  //LINK DATA WITH THE CLOSEST CP
+    //2.FOR EACH DATA, CALCULATE ITS DISTANCE^2 WITH EACH CP
+    for(let i = 0; i < data.length; i++){
+      //3.FIND THE CP THAT IS CLOSEST
+      //GET data[i] TO EACH CP DISTANCE
+      let cpIndex = c.reduce((cIndex, currentVal, idx) => {
+        if(Math.abs(data[i]-currentVal) >= Math.abs(data[i]-c[cIndex])) {
+          return idx
+        }
+        else {
+          return cIndex
+        }
+      }, 0)
 
-  //FOR EACH CP GROUP
+      let cp = c[cpIndex]
+
+      //4.LINK DATA WITH THE CLOSEST CP
+      // ADD TO 1D ARRAY OF MATCHING CPS, SAME LENGTH AS DATA ARRAY
+      cpContainer.push(cp)
+
+      // CREATE HASH
+      if(!cpHash[cpIndex]) {
+        cpHash[cpIndex] = []
+      }
+      // ADD TO HASH
+      cpHash[cpIndex].push(data)
+    }
+    
+    console.log('cpContainer: ', cpContainer)
+    console.log('cpHash: ', cpHash)
+    
+
+    
+
+    //5.FOR EACH CP GROUP, FIND NEW CP AND UPDATE
+
+    //REPEAT 2 -> 5 EITHER UNTIL 'steps' RUN OUT OR NEW CP EQUALS PREVIOUS CP
+    step ++
+  }
+
 }
 
 //DO I WANT TO RETURN AN MAPPING ARRAY OF CPs IN SAME ORDER TO INPUT DATA?
