@@ -3,8 +3,9 @@
 
 function kMeans1D(data, k, maxSteps = 20) {
   //1.RANDOMLY PICK K CENTER POINTS(CP)
-  // let c = data.slice(0, k)
-  let c = [1, 2, 3]
+  let c = data.slice(0, k)
+  //OR MANUALLY ASSIGN C VALUES
+  // let c = [1, 11, 13]
   console.log('c: ', c)
  
   let step = 0
