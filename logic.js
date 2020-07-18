@@ -1,12 +1,13 @@
 //INPUT DATA : ARRAY
 //INPUT K : NUMBER
 
-function kMeans1D(data, k, maxSteps = 20) {
+function kMeans1D(data, k = 3, maxSteps = 20) {
   //1.RANDOMLY PICK K CENTER POINTS(CP)
-  // let c = data.slice(0, k)
+  let c = data.slice(0, k)
   //OR MANUALLY ASSIGN C VALUES
-  let c = [1, 2, 3]
+  // let c = [1, 2, 3]
   console.log('c: ', c)
+  
  
   let step = 0
   while(step < maxSteps) {
@@ -41,11 +42,14 @@ function kMeans1D(data, k, maxSteps = 20) {
       cpHash[cpIndex].push(data[i])
     }
     
-    console.log('cpContainer: ', cpContainer)
+    // console.log('cpContainer: ', cpContainer)
     console.log('cpHash: ', cpHash)
     
 
     //5.FOR EACH CP GROUP, FIND NEW CP AND UPDATE
+    let prevC = c.slice()
+    console.log(prevC)
+
     for(let key in cpHash) {
       if(cpHash[key].length <= 2) continue
       
@@ -55,7 +59,21 @@ function kMeans1D(data, k, maxSteps = 20) {
       let newCP = sum/cpHash[key].length
       c[key] = newCP
     }
+
     console.log('new c: ', c)
+    console.log('prev c: ', prevC)
+    
+    //BREAK LOOP IF CPS ARE CONSISTENT
+    let b = true
+    for(let i = 0; i < c.length; i++) {
+      if(Math.abs((c[i]-prevC[i])/c[i]) > 0.1) {
+        b = false
+      }
+    }
+    console.log(b)
+
+    if(b) break
+    
 
     //REPEAT 2 -> 5 EITHER UNTIL 'steps' RUN OUT OR NEW CP EQUALS PREVIOUS CP
     step ++
@@ -86,4 +104,4 @@ function kMeans1D(data, k, maxSteps = 20) {
   ...
 }*/
 
-kMeans1D([1,2,3,11,12,13,111,112,113], 3, 10)
+kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 3, 10)
