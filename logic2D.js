@@ -58,6 +58,17 @@ function kMeans2D(data, k = 3, maxSteps = 20) {
     console.log('new c: ', c)
     console.log('prev c: ', prevC)
 
+    //BREAK LOOP IF CPS ARE CONSISTENT
+    let b = true
+    for(let i = 0; i < c.length; i++) {
+      if(Math.pow(c[i][0]-prevC[i][0], 2) + Math.pow(c[i][1]-prevC[i][1], 2) > 0.01) {
+        b = false
+      }
+    }
+    console.log(b)
+
+    if(b) break
+
     step++
   }
   
