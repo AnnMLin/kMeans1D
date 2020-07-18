@@ -51,7 +51,7 @@ function kMeans1D(data, k = 3, maxSteps = 20) {
     console.log(prevC)
 
     for(let key in cpHash) {
-      if(cpHash[key].length <= 2) continue
+      if(cpHash[key].length <= 1) continue
       
       let sum = cpHash[key].reduce((acc, curr) => {
         return acc+curr
@@ -104,4 +104,4 @@ function kMeans1D(data, k = 3, maxSteps = 20) {
   ...
 }*/
 
-kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 3, 10)
+kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4, 10)

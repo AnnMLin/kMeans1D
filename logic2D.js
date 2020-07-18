@@ -3,7 +3,8 @@
 
 function kMeans2D(data, k = 3, maxSteps = 20) {
   //1.RANDOMLY PICK K CENTROIDS
-  let c = data.slice(0, k) // k = 3, c = [[x0, y0], [x1, y1], [x2, y2]]
+  // let c = data.slice(0, k) // k = 3, c = [[x0, y0], [x1, y1], [x2, y2]]
+  let c = [[2,2], [78,79], [333, 60]]
 
   let step = 0
   while(step < maxSteps) {
@@ -40,7 +41,7 @@ function kMeans2D(data, k = 3, maxSteps = 20) {
     let prevC = c.slice()
     
     for(let key in cHash) {
-      if(cHash[key].length <= 2) continue
+      if(cHash[key].length <= 1) continue
 
       let xSum = cHash[key].reduce((acc, curr) => {
         return acc + curr[0]
@@ -74,6 +75,8 @@ function kMeans2D(data, k = 3, maxSteps = 20) {
   
 }
 
-kMeans2D([[1,1], [1,0], [0,1], [0,0],
-          [4,4], [4,3], [3,4], [3,3],
-          [11,11], [11,10], [10,10], [10,11]], 3, 10)
+// kMeans2D([[1,1], [1,0], [0,1], [0,0],
+//           [4,4], [4,3], [3,4], [3,3],
+//           [11,11], [11,10], [10,10], [10,11]], 3, 10)
+
+kMeans2D([[3,50], [2,2], [6,78], [333, 60], [70,55], [5,68], [78,79], [60,3], [71,53]])
