@@ -3,9 +3,11 @@
 
 function kMeans1D(data, k = 3, maxSteps = 20) {
   //1.RANDOMLY PICK K CENTER POINTS(CP)
-  let c = data.slice(0, k)
-  //OR MANUALLY ASSIGN C VALUES
-  // let c = [1, 2, 3]
+  // let c = data.slice(0, k)
+  // OR MANUALLY ASSIGN C VALUES
+  // let c = [33, 66, 35, 35]
+  // OR USE K-MEANS++
+  let c = centroidInit(data, k)
   console.log('c: ', c)
   
  
@@ -81,6 +83,14 @@ function kMeans1D(data, k = 3, maxSteps = 20) {
 
 }
 
+function centroidInit(data, k) {
+  // RANDOM SELECT FIRST CENTROID
+  let centroids = []
+  centroids.push(data[0])
+
+  
+}
+
 //DO I WANT TO RETURN AN MAPPING ARRAY OF CPs IN SAME ORDER TO INPUT DATA?
 // [CP0, CP0, CP0, CP1, CP0, CP1, CP2,....]
 
@@ -104,4 +114,5 @@ function kMeans1D(data, k = 3, maxSteps = 20) {
   ...
 }*/
 
-kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4, 10)
+// kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4, 10)
+centroidInit([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4)
