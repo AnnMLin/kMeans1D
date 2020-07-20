@@ -2,11 +2,7 @@
 //INPUT K : NUMBER
 
 function kMeans1D(data, k = 3, maxSteps = 20) {
-  //1.RANDOMLY PICK K CENTER POINTS(CP)
-  // let c = data.slice(0, k)
-  // OR MANUALLY ASSIGN C VALUES
-  // let c = [33, 66, 35, 35]
-  // OR USE K-MEANS++
+  //1.PICK K CENTER POINTS(CP) WITH K-MEANS++
   let c = centroidInit(data, k)
   console.log('c: ', c)
   
@@ -50,7 +46,6 @@ function kMeans1D(data, k = 3, maxSteps = 20) {
 
     //5.FOR EACH CP GROUP, FIND NEW CP AND UPDATE
     let prevC = c.slice()
-    console.log(prevC)
 
     for(let key in cpHash) {
       if(cpHash[key].length <= 1) continue
@@ -91,7 +86,6 @@ function centroidInit(data, k) {
   let minDist = []
 
   while(k > 0) {
-    console.log(minDist)
     // FOR EACH DATA, CALCULATE DISTANCE TO (NEW) CENTROID & UPDATE IF DISTANCE IS SHORTER THAN EXISTING DIST RECORDED
     for(let i = 0; i < data.length; i++) {
       let newDist = Math.abs(data[i] - centroids[centroids.length - 1])
@@ -140,5 +134,5 @@ function centroidInit(data, k) {
   ...
 }*/
 
-// kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4, 10)
-centroidInit([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4)
+kMeans1D([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4, 10)
+// centroidInit([1, 2, 3, 112, 113, 114, 66.5, 33, 66, 35, 75, 99, 35], 4)
