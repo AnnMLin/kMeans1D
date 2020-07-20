@@ -87,8 +87,34 @@ function centroidInit(data, k) {
   // RANDOM SELECT FIRST CENTROID
   let centroids = []
   centroids.push(data[0])
+  k--
+  let minDist = []
 
-  
+  while(k > 0) {
+    console.log(minDist)
+    // FOR EACH DATA, CALCULATE DISTANCE TO (NEW) CENTROID & UPDATE IF DISTANCE IS SHORTER THAN EXISTING DIST RECORDED
+    for(let i = 0; i < data.length; i++) {
+      let newDist = Math.abs(data[i] - centroids[centroids.length - 1])
+      if(minDist[i] === undefined) {
+        minDist[i] = newDist
+      }
+      else {
+        minDist[i] = Math.min(minDist[i], newDist)
+      }
+    }
+
+    // THE DATA FURTHEST FROM EXISTING CENTROID IS THE NEW CENTROID
+    let nextCentroidIdx = minDist.reduce((acc, curr, idx) => {
+      if(curr > minDist[acc]) return idx
+      else return acc
+    }, 0)
+
+    centroids.push(data[nextCentroidIdx])
+    k--
+  }
+
+  console.log(centroids)
+  return centroids
 }
 
 //DO I WANT TO RETURN AN MAPPING ARRAY OF CPs IN SAME ORDER TO INPUT DATA?
