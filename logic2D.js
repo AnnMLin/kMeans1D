@@ -4,7 +4,8 @@
 function kMeans2D(data, k = 3, maxSteps = 20) {
   //1.RANDOMLY PICK K CENTROIDS
   // let c = data.slice(0, k) // k = 3, c = [[x0, y0], [x1, y1], [x2, y2]]
-  let c = [[2,2], [78,79], [333, 60]]
+  // let c = [[0, 1], [1, 0], [0, 0], [112, 113]]
+  let c = centroidInit2D(data, k)
 
   let step = 0
   while(step < maxSteps) {
@@ -75,8 +76,44 @@ function kMeans2D(data, k = 3, maxSteps = 20) {
   
 }
 
+function centroidInit2D(data, k) {
+  // RANDOM SELECT FIRST CENTROID
+  let centroids = []
+  centroids.push(data[0])
+  k--
+  let minDist = [] //a mapping of data array
+
+  while(k > 0) {
+    // FOR EACH DATA, CALCULATE DISTANCE TO (NEW) CENTROID & UPDATE IF DISTANCE IS SHORTER THAN EXISTING DIST RECORDED
+    for(let i = 0; i < data.length; i++) {
+      let newDist = Math.pow(data[i][0] - centroids[centroids.length - 1][0], 2) + Math.pow(data[i][1] - centroids[centroids.length - 1][1], 2)
+      if(minDist[i] === undefined) {
+        minDist[i] = newDist
+      }
+      else {
+        minDist[i] = Math.min(minDist[i], newDist)
+      }
+    }
+
+    // THE DATA FURTHEST FROM EXISTING CENTROID IS THE NEW CENTROID
+    let nextCentroidIdx = minDist.reduce((acc, curr, idx) => {
+      if(curr > minDist[acc]) return idx
+      else return acc
+    }, 0)
+
+    centroids.push(data[nextCentroidIdx])
+    k--
+  }
+  console.log(centroids)
+  return centroids
+}
+
 // kMeans2D([[1,1], [1,0], [0,1], [0,0],
 //           [4,4], [4,3], [3,4], [3,3],
 //           [11,11], [11,10], [10,10], [10,11]], 3, 10)
 
-kMeans2D([[3,50], [2,2], [6,78], [333, 60], [70,55], [5,68], [78,79], [60,3], [71,53]])
+// kMeans2D([[3,50], [2,2], [6,78], [333, 60], [70,55], [5,68], [78,79], [60,3], [71,53]])
+
+// kMeans2D([[0,1], [1,0], [0,0], [1,1], [30, 29], [29, 30], [30, 30], [29, 29], [70, 71], [71, 71], [70, 70], [71, 70], [112, 113], [113, 113], [112, 112], [113, 112]], 4)
+
+// centroidInit2D([[0,1], [1,0], [0,0], [1,1], [30, 29], [29, 30], [30, 30], [29, 29], [70, 71], [71, 71], [70, 70], [71, 70], [112, 113], [113, 113], [112, 112], [113, 112]], 4)
