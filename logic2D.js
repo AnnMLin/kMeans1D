@@ -2,9 +2,7 @@
 //INPUT K : NUMBER
 
 function kMeans2D(data, k = 3, maxSteps = 20) {
-  //1.RANDOMLY PICK K CENTROIDS
-  // let c = data.slice(0, k) // k = 3, c = [[x0, y0], [x1, y1], [x2, y2]]
-  // let c = [[0, 1], [1, 0], [0, 0], [112, 113]]
+  //1.PICK K CENTROIDS WITH K-MEANS++
   let c = centroidInit2D(data, k)
 
   let step = 0
